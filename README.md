@@ -5,7 +5,7 @@ This repository has code and documentation on computations of discrete signature
 ## Authors:
 
 Carlo Bellingeri
-
+and
 Raul Penaguiao
 
 
