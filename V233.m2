@@ -7,8 +7,8 @@ s111,s112,s121,s122,s211,s212,s221,s222,
 t111,t121,t221,t112,t122,t222,
 u111,u211,u112,u212,u122,u222, 
 v111,v112,v122,v222,
-Degrees => {4:1,24:3},
-MonomialOrder => Eliminate 4];
+Degrees => {6:1,24:3},
+MonomialOrder => Eliminate 6];
 
 I = ideal(
 a1*b1*c1-s111,
@@ -34,7 +34,7 @@ a2*b2*b2+a2*c2*c2+b2*c2*c2-u222,
 a1*a1*a1+b1*b1*b1+c1*c1*c1-v111,
 a1*a1*a2+b1*b1*b2+c1*c1*c2-v112,
 a1*a2*a2+b1*b2*b2+c1*c2*c2-v122,
-a2*a2*a2+b2*b2*b2+c2*c2*c2-v222,
+a2*a2*a2+b2*b2*b2+c2*c2*c2-v222
 );
 
 dim I -- dim =

@@ -21,6 +21,7 @@ degree I -- deg = 128
 mingens radical I;
 g = groebnerBasis I;
 J = eliminate({a1, a2, b1, b2, c1, c2}, I);
+minGensJ = mingens J; -- 1 minimal generators
 -- dimension and degree depend on the ambient space
 dim J -- 10 
 degree J -- 40
