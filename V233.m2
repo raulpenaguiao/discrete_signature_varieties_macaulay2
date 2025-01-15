@@ -37,9 +37,10 @@ a1*a2*a2+b1*b2*b2+c1*c2*c2-v122,
 a2*a2*a2+b2*b2*b2+c2*c2*c2-v222
 );
 
-dim I -- dim =
-degree I -- deg =
-mingens radical I; -- 
+print dim I -- dim =
+print "dimension"
+print degree I -- deg =
+print mingens radical I; -- 
 g = groebnerBasis I; -- 
 J = eliminate({a1, a2, b1, b2, c1, c2}, I);
 minGensJ = mingens J; -- 
