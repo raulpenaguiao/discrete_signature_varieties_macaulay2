@@ -4,7 +4,7 @@
 
 restart
 R = QQ[a1,a2,b1,b2,c1,c2,s11,s12,s21,s22,t11,t22,t12,
-Degrees => {6:1,7:2},
+Degrees => {6:1,7:1},
 MonomialOrder => Eliminate 6];
 
 I = ideal(
@@ -17,15 +17,17 @@ a2*a2+b2*b2+c2*c2-t22,
 a1*a2+b1*b2+c1*c2-t12);
 
 dim I -- dim = 6
-degree I -- deg = 128
+degree I -- deg = 36 = 2**2 * 3**2
 mingens radical I;
 g = groebnerBasis I;
+l = numColumns g; -- 70
 J = eliminate({a1, a2, b1, b2, c1, c2}, I);
 minGensJ = mingens J; -- 1 minimal generators
 -- dimension and degree depend on the ambient space
-dim J -- 10 
-degree J -- 40
-toString (mingens J)_(0, 0)
+dim J -- 12
+degree J -- 2
+toString (mingens J)_(0, 0) -- s12^2+2*s12*s21+s21^2-4*s11*s22-2*s22*t11-2*s11*t22-t11*t22+2*s12*t12+2*s21*t12+t12^2
+
 
 restart
 R = QQ[s11, s12, s21, s22, t11, t12, t22]
