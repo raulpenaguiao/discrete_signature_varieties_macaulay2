@@ -1,14 +1,20 @@
--- d = 2
--- h = 3
--- N = 3
-restart
+
 R = QQ[a1,a2,b1,b2,c1,c2,
 s111,s112,s121,s122,s211,s212,s221,s222, 
 t111,t121,t221,t112,t122,t222,
 u111,u211,u112,u212,u122,u222, 
 v111,v112,v122,v222,
-Degrees => {6:1,24:3},
+Degrees => {6:1,24:1},
 MonomialOrder => Eliminate 6];
+
+vrbs = {a1, a1, b1, b2, c1, c2};
+
+-- auxiliary functions
+isVar = var -> member(var, vrbs);
+hasNoVar = p -> (
+    0 == number(support p, isVar)
+);
+
 
 I = ideal(
 a1*b1*c1-s111,
@@ -37,23 +43,12 @@ a1*a2*a2+b1*b2*b2+c1*c2*c2-v122,
 a2*a2*a2+b2*b2*b2+c2*c2*c2-v222
 );
 
-print dim I -- dim =
-print "dimension"
-print degree I -- deg =
-print mingens radical I; -- 
-g = groebnerBasis I; -- 
-J = eliminate({a1, a2, b1, b2, c1, c2}, I);
-minGensJ = mingens J; -- 
-sizeMinGens = length minGensJ
-toString (minGensJ)_(0, sizeMinGens) -- 
-dim J -- 
-degree J -- 
 
-T = QQ[s111,s112,s121,s122,s211,s212,s221,s222, 
-t111,t121,t221,t112,t122,t222,
-u111,u211,u112,u212,u122,u222, 
-v111,v112,v122,v222]
-L = for i from 0 to sizeMinGens list substitute(minGensJ_(0, i), T);
-J = ideal(L);
-dim J -- dim 4
-degree J -- degree 27
+dim I -- dim = ??
+degree I -- deg = ??
+g = groebnerBasis I; -- ??? generators in the groebner basis
+l = numColumns g; -- ??? generators
+L = for i from 0 to l-1 list (g_i)_0;
+L = select(L, hasNoVar);
+len_gen = length L -- ?? generator of V233
+toString L_(len_gen-1) -- ???
