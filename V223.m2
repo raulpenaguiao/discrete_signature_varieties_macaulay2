@@ -30,5 +30,5 @@ g = groebnerBasis I;
 l = numColumns g; -- 70
 L = for i from 0 to l-1 list (g_i)_0;
 L = select(L, hasNoVar);
-length L -- 1 generator of V133
+length L -- 1 generator of V223
 toString L_0 -- s12^2+2*s12*s21+s21^2-4*s11*s22-2*s22*t11-2*s11*t22-t11*t22+2*s12*t12+2*s21*t12+t12^2
