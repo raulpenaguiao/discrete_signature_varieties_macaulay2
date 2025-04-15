@@ -7,8 +7,15 @@ s111,s112,s121,s122,s211,s212,s221,s222,
 t111,t121,t221, t112, t122, t222,
 u111, u211, u112, u212, u122, u222, 
 v111, v112, v122, v222,
-Degrees => {4:1,24:3},
+Degrees => {4:1,24:1},
 MonomialOrder => Eliminate 4];
+vrbs = {a1, a1, b1, b2};
+
+-- auxiliary functions
+isVar = var -> member(var, vrbs);
+hasNoVar = p -> (
+    0 == number(support p, isVar)
+);
 
 I = ideal(
 0-s111,a1*a1*b1-t111,a1*b1*b1-u111,a1*a1*a1+b1*b1*b1-v111,
@@ -22,20 +29,10 @@ I = ideal(
 );
 
 dim I -- dim = 4
-degree I -- deg = 282_429_536_481
-mingens radical I; -- 24 minimal generators
-g = groebnerBasis I; -- 107 elements in the groebner basis
-J = eliminate({a1, a2, b1, b2}, I);
-minGensJ = mingens J; -- 77 minimal generators
-toString (minGensJ)_(0, 76) -- example of a minimal generator
-dim J -- 8 dimension and degree depend on embeded space
-degree J -- 94_143_178_827
-
-T = QQ[s111,s112,s121,s122,s211,s212,s221,s222, 
-t111,t121,t221, t112, t122, t222,
-u111, u211, u112, u212, u122, u222, 
-v111, v112, v122, v222]
-L = for i from 0 to 76 list substitute(minGensJ_(0, i), T);
-J = ideal(L);
-dim J -- dim 4
-degree J -- degree 27
+degree I -- deg = 81
+g = groebnerBasis I; -- 207 generators in the groebner basis
+l = numColumns g; -- 207 generators
+L = for i from 0 to l-1 list (g_i)_0;
+L = select(L, hasNoVar);
+len_gen = length L -- 97 generator of V232
+toString L_(len_gen-1) -- 4*t111^2*u112*v112^2-t112*v111^2*v112^2+2*u111^2*v112^3-t111*v111*v112^3-4*t111^2*u112*v111*v122+t112*v111^3*v122-2*t111^2*u111*v112*v122-3*u111^2*v111*v112*v122+2*t111*v111^2*v112*v122+2*t111^2*u111*v111*v222+u111^2*v111^2*v222-t111*v111^3*v222
