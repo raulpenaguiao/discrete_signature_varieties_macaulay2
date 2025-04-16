@@ -8,11 +8,13 @@ Degrees => {3:1,8:1},
 MonomialOrder => Eliminate 3];
 vrbs = {a1, b1, c1};
 
--- auxiliary functions
-isVar = var -> member(var, vrbs);
-hasNoVar = p -> (
-    0 == number(support p, isVar)
-);
+Q = QQ[S000, S001, S010, S011, S100, S101, S110, S111,
+Degrees => {8:1}];
+
+mapFunction = map(Q, R, {a1 => 0, b1 => 0, c1 => 0, 
+    s000 => S000, s001 => S001, s010 => S010, s011 => S011, 
+    s100 => S100, s101 => S101, s110 => S110, s111 => S111});
+varietyName = "V143";
 
 
 I = ideal(
@@ -27,11 +29,39 @@ I = ideal(
 );
 
 
-dim I -- dim = 3
-degree I -- deg = 64 = 2**6
-g = groebnerBasis I;
-l = numColumns g;
-L = for i from 0 to l-1 list (g_i)_0;
-L = select(L, hasNoVar);
-length L -- 20 generators of V143
-toString L_19 -- 22050*s001*s100^3+28284*s011*s100^2*s101+257246*s100^3*s101+110804*s001*s010*s101^2+89216*s010^2*s101^2-165868*s001*s011*s101^2-129102*s010*s011*s101^2-75540*s011^2*s101^2-132088*s001*s100*s101^2+48546*s010*s100*s101^2-142262*s011*s100*s101^2+52508*s100^2*s101^2+215388*s001*s101^3+308562*s010*s101^3-30720*s011*s101^3+179208*s100*s101^3+84960*s101^4+7875*s001*s100^2*s110+31450*s010*s100^2*s110-20687*s011*s100^2*s110+77075*s100^3*s110-232796*s001*s010*s101*s110-111011*s010^2*s101*s110-146961*s001*s011*s101*s110-191051*s010*s011*s101*s110-33597*s011^2*s101*s110-270937*s001*s100*s101*s110-221365*s010*s100*s101*s110-197693*s011*s100*s101*s110+110806*s100^2*s101*s110+159439*s001*s101^2*s110+227961*s010*s101^2*s110-111380*s011*s101^2*s110+215245*s100*s101^2*s110+122829*s101^3*s110-79692*s001*s010*s110^2-16358*s010^2*s110^2-14869*s001*s011*s110^2-46866*s010*s011*s110^2-1222*s011^2*s110^2-124528*s001*s100*s110^2-23698*s010*s100*s110^2-9235*s011*s100*s110^2+22818*s100^2*s110^2-222433*s001*s101*s110^2-86437*s010*s101*s110^2-122829*s011*s101*s110^2-37353*s100*s101*s110^2-63712*s101^2*s110^2-63521*s001*s110^3-51670*s010*s110^3-11828*s011*s110^3-28305*s100*s110^3-64317*s101*s110^3-27642*s110^4+111814*s001*s100^2*s111+79936*s010*s100^2*s111+16538*s011*s100^2*s111-67090*s100^3*s111-260884*s001*s010*s101*s111-167530*s010^2*s101*s111-393926*s001*s011*s101*s111-456790*s010*s011*s101*s111-214346*s011^2*s101*s111-340384*s001*s100*s101*s111-587274*s010*s100*s101*s111-516710*s011*s100*s101*s111-343996*s100^2*s101*s111+1061762*s001*s101^2*s111+946942*s010*s101^2*s111-13888*s011*s101^2*s111+918700*s100*s101^2*s111+487722*s101^3*s111+33030*s001*s010*s110*s111+45690*s010^2*s110*s111-2150*s001*s011*s110*s111+36640*s010*s011*s110*s111+10652*s011^2*s110*s111+57540*s001*s100*s110*s111+195434*s010*s100*s110*s111+48372*s011*s100*s110*s111+94882*s100^2*s110*s111-330668*s001*s101*s110*s111-282599*s010*s101*s110*s111-412182*s011*s101*s110*s111-332303*s100*s101*s110*s111+24757*s101^2*s110*s111+20990*s001*s110^2*s111+37500*s010*s110^2*s111+39560*s011*s110^2*s111+97466*s100*s110^2*s111-186704*s101*s110^2*s111-3236*s110^3*s111-73808*s001*s010*s111^2-97308*s010^2*s111^2-55552*s001*s011*s111^2-69440*s010*s011*s111^2-27776*s011^2*s111^2-73808*s001*s100*s111^2-106828*s010*s100*s111^2-69440*s011*s100*s111^2-33020*s100^2*s111^2+553684*s001*s101*s111^2+537174*s010*s101*s111^2+537174*s100*s101*s111^2+269898*s101^2*s111^2-95112*s001*s110*s111^2-95112*s010*s110*s111^2-55552*s011*s110*s111^2-49080*s100*s110*s111^2+3236*s101*s110*s111^2-27776*s110^2*s111^2+55552*s001*s111^3+55552*s010*s111^3+55552*s100*s111^3+27776*s101*s111^3
+-- auxiliary functions
+isVar = var -> member(var, vrbs);
+
+hasNoVar = p -> (
+    0 == number(support p, isVar)
+);
+
+reduceAndMapGenerators = K -> (
+    -- reduce the ideal K in the ring R and map it into Q
+    g = groebnerBasis I;
+    lenGroebnerBasis = numColumns g;
+    L = for i from 0 to lenGroebnerBasis-1 list (g_i)_0;
+    L = select(L, hasNoVar);
+    len_subbasis = length L;
+    LNew = for i from 0 to len_subbasis-1 list mapFunction(L_i); -- we map each value of L into the new ring Q
+    return LNew;
+);
+
+-- main program
+gensReducedIdeal = reduceAndMapGenerators(I);
+numReducedGenerators = length gensReducedIdeal;
+J = ideal(gensReducedIdeal);
+dimJ = dim J;
+degreeJ = degree J;
+smplPoly = toString gensReducedIdeal_(numReducedGenerators - 1);
+
+concatenate {"There are ", toString numReducedGenerators, " generators in ", varietyName}
+concatenate {varietyName, " had dimension ", toString dimJ}
+concatenate {varietyName, " had degree ", toString degreeJ}
+concatenate {"A sample generator of ", varietyName, " is ", smplPoly}
+
+-- There are 20 generators in V143
+-- V143 had dimension 3
+-- V143 had degree 16
+-- A sample generator of V143 is 22050*S001*S100^3+28284*S011*S100^2*S101+257246*S100^3*S101+110804*S001*S010*S101^2+89216*S010^2*S101^2-165868*S001*S011*S101^2-129102*S010*S011*S101^2-75540*S011^2*S101^2-132088*S001*S100*S101^2 + ...
+ 
