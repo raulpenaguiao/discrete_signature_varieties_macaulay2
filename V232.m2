@@ -75,7 +75,7 @@ concatenate {varietyName, " had dimension ", toString dimJ}
 concatenate {varietyName, " had degree ", toString degreeJ}
 concatenate {"A sample generator of ", varietyName, " is ", smplPoly}
 
--- There are 1 generators in V232
+-- There are 97 generators in V232
 -- V232 had dimension 4
 -- V232 had degree 27
 -- A sample generator of V232 is 4*T111^2*U112*V112^2-T112*V111^2*V112^2+2*U111^2*V112^3-T111*V111*V112^3-4*T111^2*U112*V111*V122+T112*V111^3*V122-2*T111^2*U111*V112*V122-3*U111^2*V111*V112*V122+2*T111*V111^2*V112*V122 + ...
