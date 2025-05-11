@@ -1,6 +1,7 @@
 # discrete_signature_varieties_macaulay2
 
-This repository has code and documentation on computations of discrete signature varieties
+This repository has code and documentation on computations of discrete signature varieties.
+We use the ``mingens`` to guarantee that we get the minimal number of generators 
 
 ## Authors:
 
