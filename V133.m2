@@ -20,23 +20,7 @@ s10-a1*a1*b1-a1*a1*c1-b1*b1*c1,
 s01-a1*b1*b1-a1*c1*c1-b1*c1*c1,
 s11-a1*a1*a1-b1*b1*b1-c1*c1*c1);
 
--- auxiliary functions
-isVar = var -> member(var, vrbs);
-
-hasNoVar = p -> (
-    0 == number(support p, isVar)
-);
-
-reduceAndMapGenerators = K -> (
-    -- reduce the ideal K in the ring R and map it into Q
-    g = groebnerBasis I;
-    lenGroebnerBasis = numColumns g;
-    L = for i from 0 to lenGroebnerBasis-1 list (g_i)_0;
-    L = select(L, hasNoVar);
-    len_subbasis = length L;
-    LNew = for i from 0 to len_subbasis-1 list mapFunction(L_i); -- we map each value of L into the new ring Q
-    return LNew;
-);
+load "aux_functions.m2";
 
 -- main program
 gensReducedIdeal = reduceAndMapGenerators(I);
